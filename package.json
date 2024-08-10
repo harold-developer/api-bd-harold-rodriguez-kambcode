@@ -1,12 +1,12 @@
 {
   "name": "api-bd-harold-rodriguez-kambcode",
   "version": "1.0.0",
-  "description": "",
+  "description": "API, para consumo de datos de BD postgreSQL",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "harold rodriguez",
   "license": "ISC"
 }
