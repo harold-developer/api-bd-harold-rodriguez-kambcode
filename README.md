@@ -1,7 +1,5 @@
 # api-bd-harold-rodriguez-kambcode
 
-# Proyecto Node.js con PostgreSQL
-
 ## Descripción
 Este proyecto es una API RESTful construida con Node.js y Express que interactúa con una base de datos PostgreSQL. Permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre [describir brevemente las entidades que maneja la API].
 
