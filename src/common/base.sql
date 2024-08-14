@@ -1,72 +1,70 @@
--- Sentencia de SQL que crea nuestra base de datos
+-- 1. Create database
 
-CREATE DATABASE plataforma_academica
-    WITH
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    LOCALE_PROVIDER = 'libc'
-    CONNECTION LIMIT = -1
-    IS_TEMPLATE = False;
+CREATE DATABASE API_Artists_Song;
 
--- Tablas iniciales que creamos
+-- 2. Create table artists
 
-CREATE TABLE estudiantes (
-	id SERIAL PRIMARY KEY,
-	nombre VARCHAR(100) NOT NULL,
-	edad INT,
-	direccion TEXT
-);
-
-CREATE TABLE students (
-	id SERIAL PRIMARY KEY,
-	name VARCHAR(100) NOT NULL,
-	age INT,
-	address TEXT
-);
-
-CREATE TABLE profesores (
-	id SERIAL PRIMARY KEY,
-	nombre VARCHAR(100),
-	apellido VARCHAR(100),
-	profesion VARCHAR(100),
-	age INT,
-	academia VARCHAR(100)
-);
-
-CREATE TABLE estudiantes (
+CREATE TABLE Artists (
     id SERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    edad INT,
-    correo VARCHAR(100) UNIQUE NOT NULL
+    name VARCHAR(100) NOT NULL,
+    bio VARCHAR(100),
+	photoUrl VARCHAR(100) UNIQUE NOT NULL
 );
 
-CREATE TABLE cursos (
+-- 3. Create table songs
+
+CREATE TABLE Songs (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    artistId INT REFERENCES Artists(id),
+	releaseYear INT,
+	duration INT,
+	coverUrl VARCHAR(100) UNIQUE NOT NULL
+);
+
+-- 4. Create table references id 
+
+CREATE TABLE artists_songs (
 	id SERIAL PRIMARY KEY,
-	nombre VARCHAR(100) NOT NULL,
-	descripcion TEXT,
-	activo BOOLEAN DEFAULT TRUE
+	artists_id INT REFERENCES artists(id) ON DELETE CASCADE,
+	songs_id INT REFERENCES songs(id) ON DELETE CASCADE
 );
 
-CREATE TABLE inscripciones (
-	id SERIAL PRIMARY KEY,
-	estudiante_id INT REFERENCES estudiantes(id),
-	curso_id INT REFERENCES cursos(id),
-	fecha_inscripcion DATE DEFAULT CURRENT_DATE
-);
+-- 5. Relaciones entre la tablas
 
-INSERT INTO estudiantes (nombre, edad, correo)
-VALUES ('Juan Pérez', 21, 'juan.perez@example.com'),
-('María Lopez', 25, 'maria.lopez@example.com'),
-('Carlos Garcia', 30, 'carlos.garcia@example.com');
+-- "uno a muchos" (One-to-Many) entre Artist y Song. 
+-- Cada artista puede tener muchas canciones, pero cada canción pertenece a un único artista.
 
-INSERT INTO cursos (nombre, descripcion, activo)
-VALUES ('Introducción a Node.js', 'Curso básico de Node.js', TRUE),
-('Desarrollo con Express', 'Curso avanzado de Express', TRUE),
-('Bases de Datos con PostgreSQL', 'Curso sobre PostgreSQL', FALSE);
+-- 6. Insertions de data base
+-- 6.1 Inserciones de tabla de artistas
 
-UPDATE estudiantes
-SET edad = 17
-WHERE id = 1;
+INSERT INTO Artists (name, bio, photoUrl)
+VALUES ('The Beatles', 
+		'The Beatles were an English rock band formed in Liverpool.', 
+		'https://picsum.photos/id/1015/400/400'),
 
-DELETE FROM estudiantes
-WHERE id = 1;
+		('Adele', 
+		'Adele is an English singer-songwriter known for her soulful voice.', 
+		'https://picsum.photos/id/1016/400/400');
+
+-- 6.2 Inserciones de tabla de canciones
+
+INSERT INTO Songs (title, artistId, releaseYear, duration, coverUrl)
+VALUES ('Hey Jude', 1, 1968, 431, 'https://picsum.photos/id/1018/400/400'),
+		('Let It Be', 1, 1970, 243, 'https://picsum.photos/id/1020/400/400'),
+		('Rolling in the Deep', 2, 2010, 228, 'https://picsum.photos/id/1021/400/400'),
+		('Someone Like You', 2, 2011 , 284, 'https://picsum.photos/id/1022/400/400'),
+		('Hello', 2, 2015, 295, 'https://picsum.photos/id/1023/400/400');
+
+INSERT INTO artists_songs (Artists_id, Songs_id)
+VALUES  (1, 1),
+		(1, 2),
+		(2, 3),
+		(2, 4),
+		(2, 5);
+
+-- 7. Verificar la estructura
+
+SELECT * FROM artists
+SELECT * FROM songs
+SELECT * FROM artists_songs
