@@ -12,15 +12,15 @@ const Songs = sequelize.define('Songs', {
     allowNull: false,
   },
     artistId: {
-    type: DataTypes.INT,
+    type: DataTypes.INTEGER,
     allowNull: true,
   },
     releaseYear: {
-    type: DataTypes.INT,
+    type: DataTypes.INTEGER,
     allowNull: true,
   },
     duration: {
-    type: DataTypes.INT,
+    type: DataTypes.INTEGER,
     allowNull: true,
   },
     coverUrl: {
