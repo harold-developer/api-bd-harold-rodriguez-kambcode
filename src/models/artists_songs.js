@@ -11,8 +11,8 @@ const Artists_Songs = sequelize.define('Artists_Songs', {
       },
 });
 
-// Definir las relaciones
-Artists.belongsToMany(Songs, { through: Artists_Songs });
-Songs.belongsToMany(Artists, { through: Artists_Songs });
+// Define la relación "uno a muchos" (One-to-Many) entre Artist y Song. 
+Artists.hasMany(Songs, { foreignKey: 'artistId', });
+Songs.belongsToMany(Artists, { foreignKey: 'artistId', });
 
 module.exports = Artists_Songs;
