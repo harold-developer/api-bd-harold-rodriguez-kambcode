@@ -11,7 +11,7 @@ const Songs = sequelize.define('Songs', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-    artistId: {
+    artistsId: {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
@@ -28,6 +28,9 @@ const Songs = sequelize.define('Songs', {
     allowNull: false,
     unique: true,
     },
+}, {
+  timestamps: true, // Esto crea automáticamente las columnas createdAt y updatedAt
+  tableName: 'songs', // Asegúrate de que el nombre de la tabla coincida con el de la BD
 });
 
 module.exports = Songs;

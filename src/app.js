@@ -13,5 +13,9 @@ app.use('/artists', artistsRoutes);
 app.use('/songs', songsRoutes);
 app.use('/artists_songs', artists_songsRoutes);
 
+app.get('/', (req, res) => {
+    res.send('Servidor funcionando correctamente');
+});
+
 // Exportación del módulo app para que pueda ser usado en index.js
 module.exports = app;
